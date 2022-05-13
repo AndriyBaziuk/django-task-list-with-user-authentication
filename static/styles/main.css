@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 50px;
+}
+
+h1, h3 {
+    margin-block: 15px;
+}
+
+a, p {
+    color: #4b5156
+}
+
+a {
+    font-weight: 600;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background-color: white;
+    -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+    box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    background: linear-gradient(90deg, #eea390 0%, #eb796f 43%, #eb796f 100%);
+}
+
+.card-head a {
+    color: white;
+    text-decoration: none;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+input[type=text],
+input[type=password] {
+    border: 1px solid #757575;
+    border-radius: 5px;
+    padding: 10px;
+    width: 90%;
+}
+
+label {
+    padding-top: 10px !important;
+    display: block;
+}
+
+.button {
+    font-size: 16px;
+    background-color: white;
+    color: #eb796f;
+    padding: 10px;
+    margin-block: 15px;
+    border: 1px solid #eb796f;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    color: white;
+    background-color: #eb796f;
+    transition: .3s ease;
+}

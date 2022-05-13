@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-head">
+    <div>
+        <h1>{{request.user}}</h1>
+        <h3>You have {{count}} incomplete task{{ count|pluralize:"s" }}</h3>
+    </div>
+
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<div class="card-body">
+    There should be tasks
+</div>
+
+{% endblock %}
