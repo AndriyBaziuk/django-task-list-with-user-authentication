@@ -11,8 +11,36 @@
     <a href="{% url 'logout' %}">Logout</a>
 </div>
 
-<div class="card-body">
-    There should be tasks
+<div id="search-add-wrapper">
+    <form method="GET" style="display: flex;">
+        <input type='text' name='search' placeholder="Search your task" value="{{search}}">
+        <input class="button" type="submit" value='Search'>
+    </form>
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>
+</div>
+
+<div class="task-items-wrapper">
+    {% for task in tasks %}
+    <div class="task-wrapper">
+        <div class="task-title">
+            {% if task.complete %}
+            <div class="task-complete-icon"></div>
+            <s><a href="{% url 'task-update' task.id %}">{{task}}</a></s>
+            {% else %}
+            <div class="task-incomplete-icon"></div>
+            <a href="{% url 'task-update' task.id %}">{{task}}</a>
+            {% endif %}
+        </div>
+        <div class="task-controls">
+            <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+        </div>
+    </div>
+
+    {% empty %}
+    <div style="text-align: center; padding-bottom: 10px;">
+        <p>There are no tasks yet</p>
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView, ListView
+from django.views.generic import CreateView, DeleteView, FormView, ListView, UpdateView
 
 from .models import Task
 
@@ -29,6 +29,49 @@ class RegisterView(FormView):
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = "tasks"
-    
+
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user)
+        return self.model.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        search = self.request.GET.get("search", "")
+        if search:
+            context.update(
+                {"tasks": self.get_queryset().filter(title__contains=search)}
+            )
+
+        context.update(
+            {
+                "count": self.get_queryset().filter(complete=False).count(),
+                "search": search,
+            }
+        )
+
+        return context
+
+
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    fields = ["title", "description", "complete"]
+    success_url = reverse_lazy("tasks")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreateView, self).form_valid(form)
+
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    fields = ["title", "description", "complete"]
+    success_url = reverse_lazy("tasks")
+
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    context_object_name = "task"
+    success_url = reverse_lazy("tasks")
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
